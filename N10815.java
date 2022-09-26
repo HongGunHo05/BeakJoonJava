@@ -5,8 +5,7 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class N10815 {
-    static String[] arr;
-    static String[] findarr;
+    static int[] arr;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -14,33 +13,37 @@ public class N10815 {
 
         int n = Integer.parseInt(st.nextToken());
 
-        arr = br.readLine().split(" ");
+        st = new StringTokenizer(br.readLine());
+        arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
+        }
         Arrays.sort(arr);
 
-        st = new StringTokenizer(br.readLine());
-        int m = Integer.parseInt(st.nextToken());
-
-        findarr = br.readLine().split(" ");
+        int m = Integer.parseInt(new StringTokenizer(br.readLine()).nextToken());
 
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < m; i++) {
             int findnum = compare(Integer.parseInt(st.nextToken()));
 
-            System.out.println(findnum + " ");
+            System.out.print(findnum + " ");
         }
     }
-
-    // 중앙을 기준으로 위치 인덱스에서 + 1 또는 - 1 해야 됨
     static int compare(int num) {
-        int re = 0;
-        int left = 0, right = arr.length - 1, m = (left + right) / 2;
 
+        int left = 0, right = arr.length - 1;
+        while(left <= right) {
+            int mid = (left + right) / 2;
 
+            if (arr[mid] == num) {
+                return 1;
+            } else if (arr[mid] > num) {
+                right = mid - 1;
+            } else if (arr[mid] < num) {
+                left = mid + 1;
+            }
+        }
 
-
-
-        return re;
+        return 0;
     }
-
-
 }
